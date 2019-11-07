@@ -1,12 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    User Not available
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}
+    notAvailble
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'natAvailable.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>
+        <i class="fas fa-angle-double-left"></i>
+        User not Available
+        <i class="fas fa-angle-double-right"></i>
+    </h1>
+
+    <span>
+        Please go and <a href="http://127.0.0.1:4000/registerPortal ">register</a> to login again.
+        <br><br>
+        <a href="http://127.0.0.1:4000/registerPortal " class="button is-small sub">Register</a>
+    </span>
+
+{% endblock %}

@@ -1,12 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    Login Sucessful
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}
+    notAvailble
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'natAvailable.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>
+        <i class="fas fa-angle-double-left"></i>
+        Login Sucessful
+        <i class="fas fa-angle-double-right"></i>
+    </h1>
+
+{% endblock %}

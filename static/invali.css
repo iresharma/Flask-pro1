@@ -1,0 +1,21 @@
+* {
+    margin: 0 0 0 0;
+    margin-top: 60px;
+    padding: 0 0 0 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 40px;
+    font-family: gilbert,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+span {
+    font-family: acumin-pro,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    font-size: 15px;
+}

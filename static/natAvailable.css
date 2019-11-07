@@ -1,0 +1,42 @@
+* {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    text-align: center;
+}
+
+h1 {
+    font-family: gilbert-color,sans-serif;
+    font-weight: 7;
+    font-style: normal;  
+    font-size: 50px !important;
+}
+
+.boxy {
+    text-align: center;
+}
+
+.put {
+    width: 60% !important;
+}
+
+.troll {
+    text-align: center;
+}
+
+.just {
+    text-align: center;
+}
+
+.sub {
+    width: 20%;
+    height: 80%;
+    border-radius: 3px;
+    color: white;
+    background-color: teal;
+    font-size: 10px;
+}
+
+.sub:hover {
+    color: teal;
+    background-color: white;
+}

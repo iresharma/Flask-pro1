@@ -4,13 +4,11 @@ from flask import url_for
 from flask import redirect
 from flask import request
 
-
 import json
 
 from smtplib import SMTP
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def login():
@@ -24,7 +22,7 @@ def valv():
     f = open('DATA/user.json','r')
     di = eval(f.read())
     f.close()
-    if di[k['username']] == None:
+    if k['username'] not in di.keys():
         return render_template('natAvailable.html')
     elif di[k['username']] == k['password']:
         return render_template('print.html')

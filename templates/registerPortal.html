@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block  head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'registerPage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'registerPortal.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -16,38 +16,38 @@
         <div class="field">
             <label class="label">Name</label>
             <div class="control troll">
-                <input class="input put" name="name" type="text" placeholder="Name">
+                <input class="input" name="name" type="text" placeholder="Name">
             </div>
         </div>
         <div class="field">
             <label class="label">Username</label>
             <div class="control troll has-icons-left">
-                <span class="icon is-small "><i class="far fa-user just"></i></span>
-                <input class="input put" name="username" type="text" placeholder="Username">
+                <span class="icon bbdd"><i class="far fa-user just"></i></span>
+                <input class="input" name="username" type="text" placeholder="Username">
             </div>
         </div>
         <div class="field">
             <label class="label">Email</label>
             <div class="control troll has-icons-left">
-                <spa class="icon">x<i class="far fa-paper-plane"></i></spa>
-                <input class="input put" name="email" type="email" placeholder="Email Address">
+                <spa class="icon bbdd">x<i class="far fa-paper-plane"></i></spa>
+                <input class="input" name="email" type="email" placeholder="Email Address">
             </div>
         </div>
         <div class="field">
             <label class="label">Phone Number</label>
             <div class="control troll has-icons-left">
-                <spa class="icon"><i class="fas fa-voicemail"></i></spa>
-                <input class="input put" name="telnum" type="tel" placeholder="Phone Number">
+                <spa class="icon bbdd"><i class="fas fa-voicemail"></i></spa>
+                <input class="input" name="telnum" type="tel" placeholder="Phone Number">
             </div>
         </div>
         <div class="field">
             <label class="label">Password</label>
             <div class="control troll has-icons-left">
-                <spa class="icon">x<i class="far fa-paper-plane"></i></spa>
-                <input class="input put" name="password" type="password" placeholder="Password">
+                <spa class="icon bbdd"><i class="far fa-paper-plane"></i></spa>
+                <input class="input" name="password" type="password" placeholder="Password">
             </div>
         </div>
-        <input class="sub" type="submit" value="Register">
+        <input class="put" type="submit" value="Register">
     </form>
 </div>
 {% endblock %}

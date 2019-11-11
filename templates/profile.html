@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ username }}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'profile.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>
+        <i class="fas fa-angle-double-left"></i>
+        Login Sucessful
+        <i class="fas fa-angle-double-right"></i>
+    </h1>
+
+    <h1>{{ username }}</h1>
+    <hr>
+
+    <div>
+        <img src="static/images/{{ img }}" alt="Profile picture" class="pro_pic">
+        <label class="label"> Name </label>
+        <span>{{ name }}</span>
+        <label class="label"> Email </label>
+        <span>{{ email }}</span>
+        <label class="label"> Telphone </label>
+        <span>{{ tel }}</span>
+    </div>
+
+{% endblock %}

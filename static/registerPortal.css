@@ -32,6 +32,8 @@ h1 {
 .put:hover {
     color: #06CE7C;
     background-color: white;
+    border: solid 1px;
+    border-color: #06CE7C;
 }
 
 input[type="text"] {
@@ -96,4 +98,24 @@ input[type = "tel"]:hover {
 
 .bbdd {
     margin-left: 20%;
+}
+
+/* input[typpe = "file"] {
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+} */
+
+input[type = "file"]:focus {
+    border-color: #06CE7C !important;
+}
+
+input[type = "file"]:hover {
+    border-color: turquoise !important;
+}
+
+.ll {
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
 }

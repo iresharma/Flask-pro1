@@ -24,3 +24,6 @@ My first flask (python FrameWork) project
 
 ## Help
   - Image Upload not working
+
+
+``` Author @iresharma ``` 

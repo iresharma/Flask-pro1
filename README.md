@@ -8,6 +8,7 @@ My first flask (python FrameWork) project
   - Regitration
   - Email verification
   - Login
+  - Profile Page
   
   
 # In process
@@ -16,3 +17,7 @@ My first flask (python FrameWork) project
   - Profile page
   - Post
   - Edit/Delete/like/comment post
+
+
+# Help
+  - Image Upload not working

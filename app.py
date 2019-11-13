@@ -1,28 +1,86 @@
+#Social Network attempt using Flask
+#Project by @iresharma
+
+#importing Flask Essentials
+
 from flask import Flask
 from flask import render_template
 from flask import url_for
 from flask import redirect
 from flask import request
 
+#importing modules to enable file upload
+
 from werkzeug.utils import secure_filename
+
+#importing json module to work with json files for pre mature data
 
 import json
 
+#importing modules to enable email verification
+
 from smtplib import SMTP
 from email.mime.text import MIMEText as text
+
+#initializing
 
 app = Flask(__name__)
 
 app.secret_key = 'iresharma88'
 
-UPLOAD_FOLDER = 'static/images'
+UPLOAD_FOLDER = 'DATA/images'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+#Registration Portal
+
+@app.route('/registerPortal')
+def registerr():
+    return render_template('registerPortal.html')     
+
+#Registration Logic
+
+@app.route('/register', methods = ['POST'])
+def register():
+    if request.method == 'POST':
+        k = request.form
+        b = request.files
+    
+    c = tempJSON(k)
+
+    with open('DATA/temp.json','w') as fp:
+        json.dump(c,fp)
+
+    sendEmail(k['email'], k['password'], k['username'])
+
+    return render_template('checkMail.html')
+
+#verification Logic
+
+@app.route('/verify/<user>')
+def verify(user):
+    f = open('DATA/user.json', 'r')
+    di = eval(f.read())
+    f.close()
+
+    k = open('DATA/temp.json', 'r')
+    dit = eval(k.read())
+    k.close()
+
+    di[user] = dit[user]
+    with open('DATA/user.json','w') as fp:
+        json.dump(di,fp)
+    
+    return render_template('loginPage.html')
+
+#LoginPage
+
 @app.route('/')
 def login():
     return render_template('loginPage.html')
+
+#Login Logic
 
 @app.route('/value', methods = ['POST'])
 def valv():
@@ -47,40 +105,7 @@ def valv():
     else:
         return render_template('invalidPassword.html')
 
-@app.route('/registerPortal')
-def registerr():
-    return render_template('registerPortal.html')     
-
-@app.route('/register', methods = ['POST'])
-def register():
-    if request.method == 'POST':
-        k = request.form
-        b = request.files
-    
-    c = tempJSON(k)
-
-    with open('DATA/temp.json','w') as fp:
-        json.dump(c,fp)
-
-    sendEmail(k['email'], k['password'], k['username'])
-
-    return render_template('checkMail.html')
-
-@app.route('/verify/<user>')
-def verify(user):
-    f = open('DATA/user.json', 'r')
-    di = eval(f.read())
-    f.close()
-
-    k = open('DATA/temp.json', 'r')
-    dit = eval(k.read())
-    k.close()
-
-    di[user] = dit[user]
-    with open('DATA/user.json','w') as fp:
-        json.dump(di,fp)
-    
-    return render_template('loginPage.html')
+#Function for sending Email
 
 def sendEmail(to, pp, uu):
     content = open('DATA/content.txt', 'r')
@@ -98,6 +123,8 @@ def sendEmail(to, pp, uu):
     m['To'] = to
     
     server.sendmail('iresharmacodes@gmail.com', to, m.as_string())
+
+#function for writing tojson File
 
 def tempJSON(k):
     

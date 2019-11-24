@@ -119,3 +119,23 @@ input[type = "file"]:hover {
     margin-right: 20%;
     width: 60%;
 }
+
+input[type="radio"] {
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+}
+
+input[type = "radio"]:focus {
+    border-color: #06CE7C !important;
+}
+
+input[type = "radio"]:hover {
+    border-color: turquoise !important;
+}
+
+.jj {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

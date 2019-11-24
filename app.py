@@ -22,6 +22,14 @@ import json
 from smtplib import SMTP
 from email.mime.text import MIMEText as text
 
+#importing modules to enable sms verficatio
+
+from twilio.rest import Client
+
+#importing random module to generator OTP
+
+import random
+
 #initializing
 
 app = Flask(__name__)
@@ -48,17 +56,22 @@ def register():
         b = request.files
     
     c = tempJSON(k)
-
+    print(k)
     with open('DATA/temp.json','w') as fp:
         json.dump(c,fp)
 
-    sendEmail(k['email'], k['password'], k['username'])
+    if 'vermail' in k.keys():
+        sendEmail(k['email'], k['password'], k['username'])
+        return render_template('checkMail.html')
+    else:
+        sendSMS(k['username'])
+        render_template('OTPCheck.html', username = k['username'])
 
-    return render_template('checkMail.html')
+
 
 #verification Logic
 
-@app.route('/verify/<user>')
+@app.route('/verifyEmail/<user>')
 def verify(user):
     f = open('DATA/user.json', 'r')
     di = eval(f.read())
@@ -91,6 +104,8 @@ def valv():
     di = eval(f.read())
     f.close()
 
+    print(k)
+
     if k['username'] not in di.keys():
         error = 'user not available'
         return render_template('natAvailable.html')
@@ -109,22 +124,54 @@ def valv():
 
 def sendEmail(to, pp, uu):
     content = open('DATA/content.txt', 'r')
-    l = open('DATA/passG.txt', 'r')
+    l = open('DATA/credential.json', 'r')
+
+    j = eval(l.read())
+
+    l.close()
 
     server = SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('iresharmacodes@gmail.com',l.read())
+    server.login('iresharmacodes@gmail.com', j['passG'])
 
     m = text(content.read() + '/' +  uu + '\n\n Thank You')
 
     m['Subject'] = 'Verify Your Email ID'
     m['From'] = 'iresharmacodes@gmail.com'
     m['To'] = to
+
+    content.close()
     
     server.sendmail('iresharmacodes@gmail.com', to, m.as_string())
 
-#function for writing tojson File
+#function to send sms
+def sendSMS(uu):
+    l = open('DATA/credential.json', 'r')
+    j = eval(l.read())
+    l.close()
+
+    k = open('DATA/temp.json', 'r')
+    b = eval(k.read())
+    k.close()
+
+    a = open('DATA/contentSMS.txt', 'r')
+
+    client = Client(j['twiAccSid'], j['twiAccToken'])
+
+    b[uu]['OTP'] = random.choice(range(100000,1000000))
+
+    k = open('DATA/temp.json', 'w')
+    json.dump(b,k)
+    k.close()
+
+    meassage = client.messages.create(
+        from_ ='+12512946865',
+        to = b[uu]['tel'],
+        body = '\n' + str(b[uu]['OTP']) +'\n\n Thank you'
+    )
+
+#function for writing to json File
 
 def tempJSON(k):
     
@@ -135,8 +182,6 @@ def tempJSON(k):
     di[k['username']]['tel'] = k['telnum']
     di[k['username']]['email'] = k['email']
     di[k['username']]['pic'] = ''
-
-    print(di)
 
     return di
 

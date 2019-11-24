@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    OTPVerification
+{% endblock %}
+
+{% block  head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'OTPCheck.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>Verfiy Your Number</h1>
+    {{ username }} we verify your number {{ tel }} by entering the OTP sent to your number
+    <form action="http://127.0.0.1:4000/verifySMS/{{ username }}">
+        <input type="number" placeholder="OTP" value="OTP" aria-valuemax="999999" aria-valuemin="100000">
+    </form>
+{% endblock %}

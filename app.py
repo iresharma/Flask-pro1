@@ -65,11 +65,11 @@ def register():
         return render_template('checkMail.html')
     else:
         sendSMS(k['username'])
-        render_template('OTPCheck.html', username = k['username'])
+        return render_template('OTPCheck.html', username = k['username'])
 
 
 
-#verification Logic
+#Email verification Logic
 
 @app.route('/verifyEmail/<user>')
 def verify(user):
@@ -87,6 +87,30 @@ def verify(user):
     
     return render_template('loginPage.html')
 
+
+#SMS Verificatio Logic
+
+@app.route('/verifySMS/<user>', methods = ['POST'])
+def verifySMS(user):
+
+    if request.method == 'POST':
+        k = request.form
+
+    l = open('DATA/temp.json', 'r')
+    diTemp = eval(l.read())
+    l.close()
+
+    b = open('DATA/user.json','r')
+    diUser = eval(b.read())
+    b.close()
+    print(k['OTP'], diTemp[user]['OTP'])
+    if int(k['OTP']) == int(diTemp[user]['OTP']):
+        diUser[user] = diTemp[user]
+        with open('DATA/user.json', 'w') as w:
+            json.dump(diUser, w)
+        return render_template('loginPage.html')
+    else:
+        return render_template('reOTPcheck.html')
 #LoginPage
 
 @app.route('/')
@@ -166,9 +190,9 @@ def sendSMS(uu):
     k.close()
 
     meassage = client.messages.create(
-        from_ ='+12512946865',
+        from_ = j['twiPhoneNum'],
         to = b[uu]['tel'],
-        body = '\n' + str(b[uu]['OTP']) +'\n\n Thank you'
+        body = a.read() + '  \n' + str(b[uu]['OTP']) +'\n\n Thank you'
     )
 
 #function for writing to json File

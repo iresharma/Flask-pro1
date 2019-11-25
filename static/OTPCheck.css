@@ -33,36 +33,19 @@ h1 {
     color: #06CE7C;
     background-color: white;
     border-color: #06CE7C;
+    border: solid;
 }
 
-input[type="text"] {
+input[type = "number"] {
     margin-left: 20%;
     margin-right: 20%;
     width: 60%;
 }
 
-input[type="password"] {
-    margin-left: 20%;
-    margin-right: 20%;
-    width: 60%;
+input[type = "number"]:hover {
+    border-color: turquoise;
 }
 
-.bbdd {
-    margin-left: 20%;
-}
-
-input[type = "text"]:focus {
-    border-color: #06CE7C !important;
-}
-
-input[type = "text"]:hover {
-    border-color: turquoise !important;
-}
-
-input[type = "password"]:focus {
-    border-color: #06CE7C !important;
-}
-
-input[type = "password"]:hover {
-    border-color: turquoise !important;
+input[type = "number"]:focus {
+    border-color: #06CE7C;
 }

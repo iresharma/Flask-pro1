@@ -31,11 +31,13 @@ My first flask (python FrameWork) project
 ## About SMS Verification
   chaces are sms verfication may not work for you because I have put in my credentials up here and hence TWilio has blocked my Account.
   
-  to make the SMS verification work go to 
-              - register
-              - Get a twilio number 
-              - Get a account SID and Auth Token
-    Then perform the following changes in the sendSMS(uu) function of my code
+  to make the SMS verification work go to https://www.twilio.com/sms
+  
+   - register
+   - Get a twilio number 
+   - Get a account SID and Auth Token
+              
+  Then perform the following changes in the sendSMS(uu) function of my code
      
      ``` def sendSMS(uu):
               l = open('DATA/credential.json', 'r')   --- comment this
@@ -61,6 +63,5 @@ My first flask (python FrameWork) project
                                                   to = b[uu]['tel'],
                                                     body = '\n' + str(b[uu]['OTP']) +'\n\n Thank you'
                                           ) ```
-
 
 ``` Author @iresharma ``` 

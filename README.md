@@ -1,4 +1,4 @@
-# Flask-pro1
+# The Social Media Project 
 
 My first flask (python FrameWork) project
 
@@ -9,7 +9,7 @@ My first flask (python FrameWork) project
   - Email verification
   - Login
   - Profile Page
-  - SMS Verificatio*
+  - SMS Verification*
   
   
 ## In process

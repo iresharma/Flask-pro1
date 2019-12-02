@@ -30,6 +30,13 @@ from twilio.rest import Client
 
 import random
 
+#importing modules to enable Firebase
+
+import firebase_admin
+
+from firebase_admin import credentials
+from firebase_admin import firestore
+
 #initializing
 
 app = Flask(__name__)
@@ -40,6 +47,16 @@ UPLOAD_FOLDER = 'DATA/images'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+#initializing firebase
+
+cred = credentials.Certificate('DATA/creds.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+#initializing firestore
+
+doc_ref = db.collection(u'users')
 
 #Registration Portal
 
@@ -81,10 +98,12 @@ def verify(user):
     dit = eval(k.read())
     k.close()
 
-    di[user] = dit[user]
-    with open('DATA/user.json','w') as fp:
-        json.dump(di,fp)
+    # di[user] = dit[user]
+    # with open('DATA/user.json','w') as fp:
+    #     json.dump(di,fp)
     
+    firestore_input(dit, doc_ref, user)
+
     return render_template('loginPage.html')
 
 
@@ -103,11 +122,12 @@ def verifySMS(user):
     b = open('DATA/user.json','r')
     diUser = eval(b.read())
     b.close()
-    print(k['OTP'], diTemp[user]['OTP'])
+    
     if int(k['OTP']) == int(diTemp[user]['OTP']):
-        diUser[user] = diTemp[user]
-        with open('DATA/user.json', 'w') as w:
-            json.dump(diUser, w)
+        # diUser[user] = diTemp[user]
+        # with open('DATA/user.json', 'w') as w:
+        #     json.dump(diUser, w)
+        firestore_input(diTemp, doc_ref, user)
         return render_template('loginPage.html')
     else:
         return render_template('reOTPcheck.html')
@@ -140,7 +160,7 @@ def valv():
         else:
             imgk = di[k['username']]['pic']
         
-        return render_template('profile.html', username = k['username'], name = di[k['username']]['name'], email = di[k['username']]['email'], tel = di[k['username']]['tel'], img = imgk )
+        return render_template('profile.html', username = k['username'], name = di[k['username']]['name'], email = di[k['username']]['email'], tel = di[k['username']]['tel'], img = imgk, post = di[k['username']]['post'] )
     else:
         return render_template('invalidPassword.html')
 
@@ -209,7 +229,15 @@ def tempJSON(k):
 
     return di
 
-
+def firestore_input(k, doc, uu):
+    do = doc.document(uu)
+    do.set({
+        u'password' : k[uu]['password'],
+        u'name' : k[uu]['name'],
+        u'tel' : k[uu]['tel'],
+        u'email' : k[uu]['email'],
+        u'pic' : u''
+    })
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)

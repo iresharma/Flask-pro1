@@ -1,4 +1,4 @@
-# The Social Media Project 
+# The Login Project
 
 My first flask (python FrameWork) project
 
@@ -18,9 +18,6 @@ My first flask (python FrameWork) project
   - [x] Login
   - [x] Profile Page
   - [x] SMS verifiction
-  - [ ] Database
-  - [ ] Post
-  - [ ] Edit/Delete/like/comment post
 
 
 ### Help

@@ -43,7 +43,7 @@ app = Flask(__name__)
 
 app.secret_key = 'iresharma88'
 
-UPLOAD_FOLDER = 'DATA/images'
+UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -62,7 +62,7 @@ doc_ref = db.collection(u'users')
 
 @app.route('/registerPortal')
 def registerr():
-    return render_template('registerPortal.html')     
+    return render_template('registerPortal.html.j2')     
 
 #Registration Logic
 
@@ -70,19 +70,21 @@ def registerr():
 def register():
     if request.method == 'POST':
         k = request.form
-        b = request.files
+        b = request.files['resume']
+    
+    b.save(UPLOAD_FOLDER, secure_filename('resume'))
+    print(b)
     
     c = tempJSON(k)
-    print(k)
     with open('DATA/temp.json','w') as fp:
         json.dump(c,fp)
 
     if 'vermail' in k.keys():
         sendEmail(k['email'], k['password'], k['username'])
-        return render_template('checkMail.html')
+        return render_template('checkMail.html.j2')
     else:
         sendSMS(k['username'])
-        return render_template('OTPCheck.html', username = k['username'])
+        return render_template('OTPCheck.html.j2', username = k['username'])
 
 
 
@@ -104,7 +106,7 @@ def verify(user):
     
     firestore_input(dit, doc_ref, user)
 
-    return render_template('loginPage.html')
+    return render_template('loginPage.html.j2')
 
 
 #SMS Verificatio Logic
@@ -128,14 +130,14 @@ def verifySMS(user):
         # with open('DATA/user.json', 'w') as w:
         #     json.dump(diUser, w)
         firestore_input(diTemp, doc_ref, user)
-        return render_template('loginPage.html')
+        return render_template('loginPage.html.j2')
     else:
-        return render_template('reOTPcheck.html')
+        return render_template('reOTPcheck.html.j2')
 #LoginPage
 
 @app.route('/')
 def login():
-    return render_template('loginPage.html')
+    return render_template('loginPage.html.j2')
 
 #Login Logic
 
@@ -152,7 +154,7 @@ def valv():
 
     if k['username'] not in di.keys():
         error = 'user not available'
-        return render_template('natAvailable.html')
+        return render_template('natAvailable.html.j2')
     elif di[k['username']]['password'] == k['password']:
 
         if di[k['username']]['pic'] == '':
@@ -160,9 +162,9 @@ def valv():
         else:
             imgk = di[k['username']]['pic']
         
-        return render_template('profile.html', username = k['username'], name = di[k['username']]['name'], email = di[k['username']]['email'], tel = di[k['username']]['tel'], img = imgk, post = di[k['username']]['post'] )
+        return render_template('profile.html.j2', username = k['username'], name = di[k['username']]['name'], email = di[k['username']]['email'], tel = di[k['username']]['tel'], img = imgk, post = di[k['username']]['post'] )
     else:
-        return render_template('invalidPassword.html')
+        return render_template('invalidPassword.html.j2')
 
 #Function for sending Email
 

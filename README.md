@@ -19,9 +19,6 @@ My first flask (python FrameWork) project
   - [x] Profile Page
   - [x] SMS verifiction
 
-
-### Help
-  - Image Upload not working
   
   
   
